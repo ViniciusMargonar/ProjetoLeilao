@@ -1,0 +1,9 @@
+{
+    "welcome": "Welcome",
+    "button":{
+        "login": "Login",
+        "register": "Register"
+    }, 
+    "password": "Password",
+    "email": "Email"
+}
