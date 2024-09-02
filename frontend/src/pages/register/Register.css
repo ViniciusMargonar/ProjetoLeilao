@@ -1,3 +1,8 @@
+::placeholder {
+    color: rgba(0, 0, 0, 0.29); /* Ajuste a cor conforme necessário */
+}
+
+
 .register-container {
     display: flex;
     justify-content: center;
@@ -12,7 +17,7 @@
     align-items: center;
     padding: 20px;
     margin-bottom: 5px;
-    text-align: center;
+    text-align: left;
     
 }
 
@@ -38,6 +43,13 @@
 
 .p-card-content {
     width: 100%;
+}
+
+.button-container {
+    text-align: center;
+    display: flex;
+    justify-content: center; 
+    gap: 0.5rem; 
 }
 
 
