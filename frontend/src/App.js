@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes} from  'react-router-dom';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
+import ForgotPassword from './pages/forgot_password/ForgotPassword';
 import DefaultLayout from './components/DefaultLayout';
 import SimpleLayout from './components/SimpleLayout';
 import PrivateRouter from './components/PrivateRouter';
@@ -20,6 +21,7 @@ function App() {
           </Route>
             <Route path='/login' element={<SimpleLayout><Login></Login></SimpleLayout>}/>
             <Route path='/register' element={<SimpleLayout><Register></Register></SimpleLayout>}/>
+            <Route path='/forgotPassword' element={<SimpleLayout><ForgotPassword></ForgotPassword></SimpleLayout>}/>
         </Routes>
       </BrowserRouter>
     {/* <Footer/> */}

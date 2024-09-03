@@ -8,15 +8,16 @@ import { useNavigate } from 'react-router-dom';
 import { Divider } from 'primereact/divider';
 
 const Register = () => {
+    // Hook para navegação entre rotas
     const navigate = useNavigate();
     
     // Estado para armazenar a senha inserida pelo usuário
     const [password, setPassword] = useState('');
     
-    // Novo estado para armazenar a confirmação da senha inserida pelo usuário
+    // Estado para armazenar a confirmação da senha inserida pelo usuário
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    // Novo estado para armazenar uma mensagem de erro se as senhas não coincidirem
+    // Estado para armazenar uma mensagem de erro se as senhas não coincidirem
     const [errorMessage, setErrorMessage] = useState('');
 
     // Estado para rastrear quais requisitos da senha foram cumpridos
@@ -30,13 +31,14 @@ const Register = () => {
 
     // Função que valida a senha e atualiza os dados dos requisitos
     const validarSenha = (password) => {
+        // Verifica se a senha atende a cada requisito
         const minLength = /.{6,}/.test(password);
         const hasUpperCase = /[A-Z]/.test(password);
         const hasLowerCase = /[a-z]/.test(password);
         const hasNumber = /\d/.test(password);
         const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-        // Atualiza os requisitos com base nos resultados das validações
+        // Atualiza o estado dos requisitos da senha
         setRequirements({
             minLength,
             hasUpperCase,
@@ -46,32 +48,36 @@ const Register = () => {
         });
     };
 
-    // Função chamada quando a senha é alterada, para atualizar a senha e validar os requisitos
+    // Função chamada quando a senha é alterada
     const handlePasswordChange = (e) => {
         const newPassword = e.target.value;
-        setPassword(newPassword); // Atualiza a senha na variável de estado
-        validarSenha(newPassword); // Chama a função de validação
+        setPassword(newPassword); // Atualiza o estado da senha
+        validarSenha(newPassword); // Valida a senha e atualiza os requisitos
     };
 
-    // Nova função chamada quando a confirmação da senha é alterada
+    // Função chamada quando a confirmação da senha é alterada
     const handleConfirmPasswordChange = (e) => {
         const newConfirmPassword = e.target.value;
-        setConfirmPassword(newConfirmPassword); // Atualiza a confirmação da senha na variável de estado
+        setConfirmPassword(newConfirmPassword); // Atualiza o estado da confirmação da senha
     };
 
-    // Nova função chamada quando o usuário tenta enviar o formulário
+    // Função chamada quando o usuário tenta enviar o formulário
     const handleSubmit = () => {
         // Verifica se a senha e a confirmação da senha são iguais
         if (password !== confirmPassword) {
-            setErrorMessage('As senhas devem ser iguais'); // Exibe uma mensagem de erro se as senhas não forem iguais
+            setErrorMessage('As senhas devem ser iguais'); // Define a mensagem de erro se as senhas não coincidirem
         } else {
-            setErrorMessage(''); // Limpa a mensagem de erro se as senhas forem iguais
+            setErrorMessage(''); // Limpa a mensagem de erro se as senhas coincidirem
             
-            console.log("Cadastro realizado!");
+            console.log("Cadastro realizado!"); // Simula o cadastro realizado com sucesso
+            // Aqui você pode adicionar lógica para enviar os dados ao servidor
         }
     };
 
+    // Cabeçalho para o componente Password com a mensagem "Escolha uma senha"
     const header = <div className="font-bold mb-3">Escolha uma senha</div>;
+
+    // Rodapé para o componente Password com a lista de requisitos
     const footer = (
         <>
             <Divider />
@@ -90,15 +96,19 @@ const Register = () => {
         <div className="register-container">
             <Card className="p-card-register" title="Cadastre-se">
                 <div>
+                    {/* Campo para o nome do usuário */}
                     <label htmlFor="nome">Nome</label>
                     <InputText id="nome" placeholder="Nome" style={{ width: '100%' }} />
 
+                    {/* Campo para o sobrenome do usuário */}
                     <label htmlFor="sobrenome">Sobrenome</label>
                     <InputText id="sobrenome" placeholder="Sobrenome" style={{ width: '100%' }} />
 
+                    {/* Campo para o e-mail do usuário */}
                     <label htmlFor="email">E-mail</label>
                     <InputText id="email" placeholder="Email" style={{ width: '100%' }} />
 
+                    {/* Campo para a senha do usuário */}
                     <label htmlFor="senha">Senha</label>
                     <Password 
                         value={password} 
@@ -112,6 +122,7 @@ const Register = () => {
                         strongLabel="Senha forte"
                     />
 
+                    {/* Campo para a confirmação da senha do usuário */}
                     <label htmlFor="confirmarSenha">Confirme sua Senha</label>
                     <Password 
                         value={confirmPassword} 
@@ -124,7 +135,7 @@ const Register = () => {
                     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 </div>
 
-                {/* O botão "Cadastrar" agora valida se as senhas são iguais antes de prosseguir */}
+                {/* Contêiner para os botões de cadastro e voltar */}
                 <div className="button-container">
                     <Button className="w-4" label="Cadastrar" onClick={handleSubmit} />
                     <Button className="w-4 ml-2" label="Voltar" onClick={() => navigate('/login')} />
