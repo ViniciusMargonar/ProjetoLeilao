@@ -38,7 +38,7 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <Card title="Login">
+            <Card title="Trauction">
                 {/* Campo para o e-mail do usuário */}
                 <InputText 
                     onChange={handleChange} 

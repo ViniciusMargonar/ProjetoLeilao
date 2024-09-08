@@ -1,0 +1,17 @@
+.header{
+    border: 1px solid #aaa9a9;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #dfdfdf;
+    
+}
+
+.menu {
+    background-color: #f9f9f9;
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: left; /* Centraliza o grupo de itens */
+}
+
