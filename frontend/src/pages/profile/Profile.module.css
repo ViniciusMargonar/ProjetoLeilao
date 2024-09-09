@@ -73,8 +73,30 @@
     width: 100%;
 }
 
-.dialogFooter {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+.uploadDialog {
+    width: 400px;
 }
+
+.uploadDialog .p-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.uploadDialog .p-fileupload {
+    width: 100%;
+}
+
+.fileUploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.fileUploadContainer .p-fileupload {
+    width: 100%;
+    max-width: 300px; 
+}
+

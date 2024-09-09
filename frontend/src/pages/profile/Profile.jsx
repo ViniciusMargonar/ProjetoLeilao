@@ -3,8 +3,9 @@ import style from './Profile.module.css';
 import homeIcon from '../../assets/trauctionLogo.png';
 import { Card } from 'primereact/card';
 import { Dialog } from 'primereact/dialog';
-import { InputText } from 'primereact/inputtext'; 
+import { InputText } from 'primereact/inputtext';
 import { Button } from "primereact/button";
+import { FileUpload } from 'primereact/fileupload';
 
 const Profile = () => {
     // Função para carregar os dados do perfil do local storage
@@ -23,7 +24,8 @@ const Profile = () => {
             neighborhood: 'Bairro Jardim das Rosas',
             city: 'São Paulo',
             state: 'SP',
-            zip: '01234-567'
+            zip: '01234-567',
+            profilePic: homeIcon // Adiciona uma chave para a foto do perfil
         };
     };
 
@@ -35,6 +37,9 @@ const Profile = () => {
 
     // Estado para armazenar os dados que estão sendo editados
     const [editData, setEditData] = useState({ ...profileData });
+
+    // Estado para controlar a visibilidade do diálogo de upload de foto
+    const [uploadVisible, setUploadVisible] = useState(false);
 
     // Efeito colateral que salva os dados do perfil no local storage sempre que profileData mudar
     useEffect(() => {
@@ -67,11 +72,41 @@ const Profile = () => {
         setVisible(false);
     };
 
+    // Função para lidar com o upload da nova foto de perfil
+    const handleUpload = (event) => {
+        const file = event.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            setProfileData(prevData => ({
+                ...prevData,
+                profilePic: reader.result // Atualiza a foto do perfil com o novo arquivo
+            }));
+            localStorage.setItem('profileData', JSON.stringify(profileData));
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    };
+
+    // Função chamada ao clicar na foto de perfil
+    const handleProfilePicClick = () => {
+        setUploadVisible(true);
+    };
+
+    // Função chamada ao clicar no botão "Cancelar" ou ao fechar o diálogo de upload
+    const handleUploadClose = () => {
+        setUploadVisible(false);
+    };
+
     return (
         <div className={style.profileContainer}>
             <Card className={style.mainCard}>
                 <div className={style.profileHeader}>
-                    <img src={homeIcon} alt="Profile" className={style.profileImage} />
+                    <div className={style.profileImageContainer} onClick={handleProfilePicClick}>
+                        <img src={profileData.profilePic} alt="Profile" className={style.profileImage} />
+                    </div>
                     <div className={style.profileInfo}>
                         <h1>{profileData.name}</h1>
                         <p>Email: {profileData.email}</p>
@@ -83,7 +118,7 @@ const Profile = () => {
                     <div className={style.profileSection}>
                         <h2>Dados Pessoais</h2>
                         <p>Data de Nascimento: {profileData.birthDate}</p>
-                        <p>Gênero: {profileData.gender}</p>                        
+                        <p>Gênero: {profileData.gender}</p>
                     </div>
 
                     <div className={style.profileSection}>
@@ -106,10 +141,10 @@ const Profile = () => {
                 </div>
             </Card>
 
-            <Dialog 
-                header="Editar Perfil" 
-                visible={visible} 
-                onHide={handleClose} 
+            <Dialog
+                header="Editar Perfil"
+                visible={visible}
+                onHide={handleClose}
                 className={style.dialogContainer}
                 footer={
                     <div className={style.dialogFooter}>
@@ -139,6 +174,23 @@ const Profile = () => {
                         <span>Gênero:</span>
                         <InputText name="gender" value={editData.gender} onChange={handleInputChange} className={style.inputField} />
                     </div>
+                </div>
+            </Dialog>
+
+            <Dialog
+                header="Atualizar foto de Perfil"
+                visible={uploadVisible}
+                onHide={handleUploadClose}
+                className={style.uploadDialog}
+            >
+                <div className={style.fileUploadContainer}>
+                    <FileUpload
+                        mode="basic"
+                        accept="image/*"
+                        chooseLabel="Escolher Nova Foto"
+                        customUpload
+                        uploadHandler={handleUpload}
+                    />
                 </div>
             </Dialog>
         </div>
