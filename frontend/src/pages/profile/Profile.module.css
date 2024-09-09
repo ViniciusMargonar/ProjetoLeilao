@@ -48,3 +48,33 @@
     border-radius: 5px;
     padding: 15px;
 }
+
+.dialogContainer {
+    width: 500px;
+}
+
+.dialogContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.dialogSection {
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+.dialogSection span {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.inputField {
+    width: 100%;
+}
+
+.dialogFooter {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
