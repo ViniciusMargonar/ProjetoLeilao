@@ -1,6 +1,7 @@
 import { Button } from "primereact/button";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import style from "./Logout.module.css";
 
 const Logout = () => {
     const navigate = useNavigate();
@@ -11,7 +12,12 @@ const Logout = () => {
     }
     return(
         <>
-            <Button label='Logout' onClick={logout}/>
+            <Button 
+                className={style.logoutButton} 
+                icon= 'pi pi-sign-out'
+                label='Deslogar' 
+                onClick={logout}
+            />
         </>
     )
 }

@@ -1,0 +1,11 @@
+/* Logout.module.css */
+.logoutButton {
+    background-color: #f9f9f9;
+    color: #4b5563; /* Cor do texto preta */
+    border: none; /* Remove a borda */
+}
+
+.logoutButton:hover {
+    background-color: #f0f0f0; 
+}
+

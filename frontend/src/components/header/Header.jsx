@@ -2,9 +2,19 @@ import React from "react";
 import style from "./Header.module.css";
 import { Menubar } from 'primereact/menubar';
 import homeIcon from '../../assets/trauctionLogo.png';
+import Logout from "../../components/logout/Logout";
+import { useTranslation } from "react-i18next";
         
 
 const Header = () =>{
+
+    const { t, i18n } = useTranslation();
+
+    const toggleLanguage = () => {
+        const newLanguage = i18n.language === 'pt' ? 'en' : 'pt';
+        i18n.changeLanguage(newLanguage);
+    };
+
     const items = [
         {
             template: (item, options) => {
@@ -231,6 +241,14 @@ const Header = () =>{
         {
             label: 'Criar Leilão',
             icon: 'pi pi-tags'
+        },
+        {
+            label: 'Trocar Idioma',
+            icon: 'pi pi-sync',
+            command: () => toggleLanguage()
+        },
+        {
+            template: () => <Logout /> // Adiciona o botão de logout dentro do Menubar
         }
     ];
 
@@ -240,7 +258,7 @@ const Header = () =>{
                 className={style.menu}
                 model={items}
                 breakpoint= "960px"
-            />  
+            />             
         </div>
     );
 }

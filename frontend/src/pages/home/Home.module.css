@@ -1,3 +1,52 @@
-.textColor {
-    color: red;
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Duas colunas de largura igual */
+    gap: 16px; /* Espaçamento entre os cards */
+    justify-content: center; /* Centraliza o grid horizontalmente */
+    margin: 0 auto; /* Adiciona margem automática para centralizar o grid */
+    max-width: 1400px; /* Define uma largura máxima para o grid, ajustável conforme necessário */
+    list-style-type: none; /* Remove marcadores da lista */
+    padding: 0; /* Remove preenchimento da lista */
+}
+
+.cardItem {
+    border-radius: 5px;
+    padding: 0; /* Remove o preenchimento para garantir que o Card ocupe toda a largura do item */
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo dentro do card */
+    align-items: center; /* Centraliza verticalmente o conteúdo dentro do card */
+    width: 100%; /* Faz com que o card ocupe toda a largura do item da lista */
+}
+
+.principalCard {
+    width: 100%; /* Faz com que o Card ocupe toda a largura do item da lista */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.secundarioCard {
+    width: 100%; /* Faz com que o Card ocupe toda a largura do item da lista */
+    height: 400px;
+    display: flex;
+    
+}
+
+.cardImage{
+    width: 50%;
+    object-fit: cover; /* Redimensiona a imagem para preencher o espaço disponível */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.divCard{
+    display: flex; /* Alinha os itens em uma linha */
+    align-items: center; /* Centraliza verticalmente os itens */
+    width: 100%; /* Faz com que o div ocupe toda a largura do card */
+}
+
+.trauction{
+    text-align: center;
+    color: #4b5563;
 }
