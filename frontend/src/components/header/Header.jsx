@@ -249,6 +249,11 @@ const Header = () =>{
             icon: 'pi pi-tags'
         },
         {
+            label: 'Dashboard',
+            icon: 'pi pi-chart-pie',
+            command: () => navigate('/dashboard')
+        },
+        {
             label: 'Trocar Idioma',
             icon: 'pi pi-sync',
             command: () => toggleLanguage()

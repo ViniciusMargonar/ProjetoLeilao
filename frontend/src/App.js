@@ -4,6 +4,7 @@ import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
+import Dashboard from './pages/dashboard/Dashboard';
 import ForgotPassword from './pages/forgot_password/ForgotPassword';
 import DefaultLayout from './components/DefaultLayout';
 import SimpleLayout from './components/SimpleLayout';
@@ -20,6 +21,7 @@ function App() {
             {/* Inserir rotas restritas */}
             <Route path='/' element={<DefaultLayout><Home></Home></DefaultLayout>}/>
             <Route path='/profile' element={<DefaultLayout><Profile></Profile></DefaultLayout>}/>
+            <Route path='/dashboard' element={<DefaultLayout><Dashboard></Dashboard></DefaultLayout>}/>
           </Route>
             <Route path='/login' element={<SimpleLayout><Login></Login></SimpleLayout>}/>
             <Route path='/register' element={<SimpleLayout><Register></Register></SimpleLayout>}/>

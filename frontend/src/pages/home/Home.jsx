@@ -106,6 +106,8 @@ const Home = () =>{
 
             <Paginator first={first} rows={rows} totalRecords={data.length} onPageChange={onPageChange} />
 
+            
+
             {/* <Button
                 label="English"
                 onClick={() => changeLanguage('en')}
