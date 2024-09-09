@@ -4,9 +4,13 @@ import { Menubar } from 'primereact/menubar';
 import homeIcon from '../../assets/trauctionLogo.png';
 import Logout from "../../components/logout/Logout";
 import { useTranslation } from "react-i18next";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
         
 
 const Header = () =>{
+
+    const navigate = useNavigate();
 
     const { t, i18n } = useTranslation();
 
@@ -28,11 +32,13 @@ const Header = () =>{
         },
         {
             label: 'Página Inicial',
-            icon: 'pi pi-home'
+            icon: 'pi pi-home',
+            command: () => navigate('/')
         },
         {
             label: 'Perfil',
-            icon: 'pi pi-user'
+            icon: 'pi pi-user',
+            command: () => navigate('/profile')
         },
         {
             label: 'Leilões',
