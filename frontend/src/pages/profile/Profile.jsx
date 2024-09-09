@@ -18,33 +18,62 @@ const Profile = () => {
             birthDate: '01/01/1980',
             gender: 'Masculino',
             cpf: '123.456.789-00',
-            idCard: 'RG 12345678',
-            cnh: '12345678900',
+            idCard: '39.230.258-5',
             address: 'Rua das Flores, 123',
             neighborhood: 'Bairro Jardim das Rosas',
             city: 'São Paulo',
             state: 'SP',
-            zip: '01234-567',
-            profilePic: homeIcon // Adiciona uma chave para a foto do perfil
+            zip: '87701060',
+            profilePic: homeIcon
         };
     };
 
-    // Estado para controlar a visibilidade do diálogo de edição
+    // Estado para gerenciar a visibilidade do diálogo de edição de perfil
     const [visible, setVisible] = useState(false);
-
     // Estado para armazenar os dados do perfil
     const [profileData, setProfileData] = useState(loadProfileData());
-
     // Estado para armazenar os dados que estão sendo editados
     const [editData, setEditData] = useState({ ...profileData });
-
-    // Estado para controlar a visibilidade do diálogo de upload de foto
+    // Estado para gerenciar a visibilidade do diálogo de upload de foto
     const [uploadVisible, setUploadVisible] = useState(false);
 
-    // Efeito colateral que salva os dados do perfil no local storage sempre que profileData mudar
+    // Atualiza os dados do perfil no local storage sempre que profileData muda
     useEffect(() => {
         localStorage.setItem('profileData', JSON.stringify(profileData));
     }, [profileData]);
+
+    // Função para lidar com mudanças nos campos de entrada
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEditData({ ...editData, [name]: value });
+
+        // Se o campo alterado for o CEP e ele tiver 8 caracteres, busca o endereço
+        if (name === 'zip' && value.length === 8) {
+            fetchAddressFromCep(value);
+        }
+    };
+
+    // Função para buscar o endereço com base no CEP usando a API ViaCep
+    const fetchAddressFromCep = (cep) => {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.erro) {
+                    setEditData(prevData => ({
+                        ...prevData,
+                        address: data.logradouro || '',
+                        neighborhood: data.bairro || '',
+                        city: data.localidade || '',
+                        state: data.uf || ''
+                    }));
+                } else {
+                    console.error('CEP não encontrado');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar o CEP:', error);
+            });
+    };
 
     // Função chamada quando o botão "Editar Perfil" é clicado
     const handleEditClick = () => {
@@ -52,27 +81,20 @@ const Profile = () => {
         setVisible(true);
     };
 
-    // Função para lidar com mudanças nos campos de entrada
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setEditData({ ...editData, [name]: value });
-    };
-
-    // Função chamada ao clicar no botão "Salvar" no diálogo
+    // Função para salvar as alterações e fechar o diálogo de edição
     const handleSave = () => {
         setProfileData({
-            ...editData,
-            cpf: profileData.cpf // Não atualizar o CPF
+            ...editData
         });
         setVisible(false);
     };
 
-    // Função chamada ao clicar no botão "Cancelar" ou ao fechar o diálogo
+    // Função para fechar o diálogo de edição sem salvar
     const handleClose = () => {
         setVisible(false);
     };
 
-    // Função para lidar com o upload da nova foto de perfil
+    // Função para lidar com o upload de uma nova foto de perfil
     const handleUpload = (event) => {
         const file = event.files[0];
         const reader = new FileReader();
@@ -80,7 +102,7 @@ const Profile = () => {
         reader.onloadend = () => {
             setProfileData(prevData => ({
                 ...prevData,
-                profilePic: reader.result // Atualiza a foto do perfil com o novo arquivo
+                profilePic: reader.result
             }));
             localStorage.setItem('profileData', JSON.stringify(profileData));
         };
@@ -90,12 +112,12 @@ const Profile = () => {
         }
     };
 
-    // Função chamada ao clicar na foto de perfil
+    // Função chamada quando o ícone da foto de perfil é clicado
     const handleProfilePicClick = () => {
         setUploadVisible(true);
     };
 
-    // Função chamada ao clicar no botão "Cancelar" ou ao fechar o diálogo de upload
+    // Função para fechar o diálogo de upload de foto
     const handleUploadClose = () => {
         setUploadVisible(false);
     };
@@ -123,15 +145,14 @@ const Profile = () => {
 
                     <div className={style.profileSection}>
                         <h2>Documentos</h2>
-                        <p>Documento de Identidade: {profileData.idCard}</p>
-                        <p>CNH: {profileData.cnh}</p>
+                        <p>RG: {profileData.idCard}</p>
                         <p>CPF: {profileData.cpf}</p>
                     </div>
 
                     <div className={style.profileSection}>
                         <h2>Endereço</h2>
-                        <p>{profileData.address}</p>
-                        <p>{profileData.neighborhood}</p>
+                        <p>Rua: {profileData.address}</p>
+                        <p>Bairro: {profileData.neighborhood}</p>
                         <p>Cidade: {profileData.city}</p>
                         <p>Estado: {profileData.state}</p>
                         <p>CEP: {profileData.zip}</p>
@@ -174,27 +195,47 @@ const Profile = () => {
                         <span>Gênero:</span>
                         <InputText name="gender" value={editData.gender} onChange={handleInputChange} className={style.inputField} />
                     </div>
+                    <div className={style.dialogSection}>
+                        <span>CEP:</span>
+                        <InputText name="zip" value={editData.zip} onChange={handleInputChange} className={style.inputField} />
+                    </div>
+                    <div className={style.dialogSection}>
+                        <span>Rua:</span>
+                        <InputText name="address" value={editData.address} onChange={handleInputChange} className={style.inputField} />
+                    </div>
+                    <div className={style.dialogSection}>
+                        <span>Bairro:</span>
+                        <InputText name="neighborhood" value={editData.neighborhood} onChange={handleInputChange} className={style.inputField} />
+                    </div>
+                    <div className={style.dialogSection}>
+                        <span>Cidade:</span>
+                        <InputText name="city" value={editData.city} onChange={handleInputChange} className={style.inputField} />
+                    </div>
+                    <div className={style.dialogSection}>
+                        <span>Estado:</span>
+                        <InputText name="state" value={editData.state} onChange={handleInputChange} className={style.inputField} />
+                    </div>
                 </div>
             </Dialog>
 
             <Dialog
-                header="Atualizar foto de Perfil"
+                header="Alterar Foto do Perfil"
                 visible={uploadVisible}
                 onHide={handleUploadClose}
                 className={style.uploadDialog}
             >
-                <div className={style.fileUploadContainer}>
-                    <FileUpload
-                        mode="basic"
-                        accept="image/*"
-                        chooseLabel="Escolher Nova Foto"
-                        customUpload
-                        uploadHandler={handleUpload}
-                    />
-                </div>
+                <FileUpload
+                    mode="basic"
+                    auto
+                    customUpload
+                    name="profilePic"
+                    accept="image/*"
+                    uploadHandler={handleUpload}
+                    className={style.fileUpload}
+                />
             </Dialog>
         </div>
     );
-}
+};
 
 export default Profile;
