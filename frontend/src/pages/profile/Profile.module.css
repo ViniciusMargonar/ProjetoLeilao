@@ -18,6 +18,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    position: relative; /* Adiciona a posição relativa para a sobreposição do ícone */
 }
 
 .profileImage {
@@ -26,6 +27,12 @@
     border-radius: 50%;
     object-fit: cover;
     margin-right: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave para o efeito de hover */
+}
+
+.profileImage:hover {
+    transform: scale(1.1); /* Aumenta a escala da imagem no hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra ao redor da imagem */
 }
 
 .profileInfo {
@@ -99,4 +106,3 @@
     width: 100%;
     max-width: 300px; 
 }
-
