@@ -89,13 +89,13 @@ const Home = () =>{
                                 <img src={homeIcon} alt="Home Icon" className={style.cardImage} />
                                 <Card className={style.secundarioCard}> 
                                     <h1>{item.tituloDoAnuncio}</h1>                                   
-                                    <p>Ano: {item.ano}</p>
-                                    <p>Tipo: {item.tipo}</p>
-                                    <p>Marca: {item.marca}</p>
-                                    {item.categoria && <p>Categoria: {item.categoria}</p>}
-                                    {item.quilometragem && <p>Quilometragem: {item.quilometragem}</p>}
-                                    {item.horimetro && <p>Horímetro: {item.horimetro}</p>}
-                                    <p>Descrição: {item.descricao}</p>
+                                    <p>{t('Year')}: {item.ano}</p>
+                                    <p>{t('Type')}: {item.tipo}</p>
+                                    <p>{t('Brand')}: {item.marca}</p>
+                                    {item.categoria && <p>{t('Category')}: {item.categoria}</p>}
+                                    {item.quilometragem && <p>{t('Mileage')}: {item.quilometragem}</p>}
+                                    {item.horimetro && <p>{t('Hours Worked')}: {item.horimetro}</p>}
+                                    <p>{t('Description')}: {item.descricao}</p>
                                 </Card>
                             </div>
                         </Card>

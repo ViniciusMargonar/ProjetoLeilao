@@ -6,8 +6,16 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from "primereact/button";
 import { FileUpload } from 'primereact/fileupload';
+import { useTranslation } from "react-i18next";
 
 const Profile = () => {
+
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (language) => {
+        i18n.changeLanguage(language);
+    };
+    
     // Função para carregar os dados do perfil do local storage
     const loadProfileData = () => {
         const data = localStorage.getItem('profileData');
@@ -131,95 +139,95 @@ const Profile = () => {
                     </div>
                     <div className={style.profileInfo}>
                         <h1>{profileData.name}</h1>
-                        <p>Email: {profileData.email}</p>
-                        <p>Telefone: {profileData.phone}</p>
+                        <p>{t('Email')}: {profileData.email}</p>
+                        <p>{t('Phone')}: {profileData.phone}</p>
                     </div>
                 </div>
 
                 <div className={style.profileContent}>
                     <div className={style.profileSection}>
-                        <h2>Dados Pessoais</h2>
-                        <p>Data de Nascimento: {profileData.birthDate}</p>
-                        <p>Gênero: {profileData.gender}</p>
+                        <h2>{t('Personal Data')}</h2>
+                        <p>{t('Birth Date')}: {profileData.birthDate}</p>
+                        <p>{t('Gender')}: {profileData.gender}</p>
                     </div>
 
                     <div className={style.profileSection}>
-                        <h2>Documentos</h2>
-                        <p>RG: {profileData.idCard}</p>
-                        <p>CPF: {profileData.cpf}</p>
+                        <h2>{t('Documents')}</h2>
+                        <p>{t('ID Card')}: {profileData.idCard}</p>
+                        <p>{t('CPF')}: {profileData.cpf}</p>
                     </div>
 
                     <div className={style.profileSection}>
-                        <h2>Endereço</h2>
-                        <p>Rua: {profileData.address}</p>
-                        <p>Bairro: {profileData.neighborhood}</p>
-                        <p>Cidade: {profileData.city}</p>
-                        <p>Estado: {profileData.state}</p>
-                        <p>CEP: {profileData.zip}</p>
+                        <h2>{t('Address')}</h2>
+                        <p>{t('Street')}: {profileData.address}</p>
+                        <p>{t('Neighborhood')}: {profileData.neighborhood}</p>
+                        <p>{t('City')}: {profileData.city}</p>
+                        <p>{t('State')}: {profileData.state}</p>
+                        <p>{t('Zip')}: {profileData.zip}</p>
                     </div>
 
-                    <Button label="Editar Perfil" className="p-button-secondary" onClick={handleEditClick} />
+                    <Button label={t('Edit Profile')} className="p-button-secondary" onClick={handleEditClick} />
                 </div>
             </Card>
 
             <Dialog
-                header="Editar Perfil"
+                header={t('Edit Profile')}
                 visible={visible}
                 onHide={handleClose}
                 className={style.dialogContainer}
                 footer={
                     <div className={style.dialogFooter}>
-                        <Button label="Cancelar" icon="pi pi-times" onClick={handleClose} className="p-button-text" />
-                        <Button label="Salvar" icon="pi pi-check" onClick={handleSave} autoFocus />
+                        <Button label={t('Cancel')} icon="pi pi-times" onClick={handleClose} className="p-button-text" />
+                        <Button label={t('Save')} icon="pi pi-check" onClick={handleSave} autoFocus />
                     </div>
                 }
             >
                 <div className={style.dialogContent}>
                     <div className={style.dialogSection}>
-                        <span>Nome:</span>
+                        <span>{t('Name')}:</span>
                         <InputText name="name" value={editData.name} onChange={handleInputChange} className={style.inputField} />
                     </div>
                     <div className={style.dialogSection}>
-                        <span>Email:</span>
+                        <span>{t('Email')}:</span>
                         <InputText name="email" value={editData.email} onChange={handleInputChange} className={style.inputField} />
                     </div>
                     <div className={style.dialogSection}>
-                        <span>Telefone:</span>
+                        <span>{t('Phone')}:</span>
                         <InputText name="phone" value={editData.phone} onChange={handleInputChange} className={style.inputField} />
                     </div>
                     <div className={style.dialogSection}>
-                        <span>Data de Nascimento:</span>
+                        <span>{t('Birth Date')}:</span>
                         <InputText name="birthDate" value={editData.birthDate} onChange={handleInputChange} className={style.inputField} />
                     </div>
                     <div className={style.dialogSection}>
-                        <span>Gênero:</span>
+                        <span>{t('Gender')}:</span>
                         <InputText name="gender" value={editData.gender} onChange={handleInputChange} className={style.inputField} />
                     </div>
                     <div className={style.dialogSection}>
-                        <span>CEP:</span>
+                        <span>{t('Zip')}:</span>
                         <InputText name="zip" value={editData.zip} onChange={handleInputChange} className={style.inputField} />
                     </div>
                     <div className={style.dialogSection}>
-                        <span>Rua:</span>
+                        <span>{t('Street')}:</span>
                         <InputText name="address" value={editData.address} onChange={handleInputChange} className={style.inputField} />
                     </div>
                     <div className={style.dialogSection}>
-                        <span>Bairro:</span>
+                        <span>{t('Neighborhood')}:</span>
                         <InputText name="neighborhood" value={editData.neighborhood} onChange={handleInputChange} className={style.inputField} />
                     </div>
                     <div className={style.dialogSection}>
-                        <span>Cidade:</span>
+                        <span>{t('City')}:</span>
                         <InputText name="city" value={editData.city} onChange={handleInputChange} className={style.inputField} />
                     </div>
                     <div className={style.dialogSection}>
-                        <span>Estado:</span>
+                        <span>{t('State')}:</span>
                         <InputText name="state" value={editData.state} onChange={handleInputChange} className={style.inputField} />
                     </div>
                 </div>
             </Dialog>
 
             <Dialog
-                header="Alterar Foto do Perfil"
+                header={t('Change Profile Picture')}
                 visible={uploadVisible}
                 onHide={handleUploadClose}
                 className={style.uploadDialog}
