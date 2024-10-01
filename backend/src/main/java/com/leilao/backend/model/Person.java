@@ -18,8 +18,9 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String name;
+    private String email;
     private String password;
     private String validationCode;
     //@Temporal(TemporalType.TIMESTAMP)
