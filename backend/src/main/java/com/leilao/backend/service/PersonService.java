@@ -4,13 +4,16 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.leilao.backend.model.Person;
 import com.leilao.backend.repository.PersonRepository;
 
 @Service
-public class PersonService {
+public class PersonService implements UserDetailsService{
     
     @Autowired
     private PersonRepository personRepository;
@@ -29,6 +32,11 @@ public class PersonService {
         personSaved.setEmail(person.getEmail());
         
         return personRepository.save(personSaved);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return personRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
     
 }
