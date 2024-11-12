@@ -2,6 +2,7 @@ package com.leilao.backend.model;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -57,10 +60,10 @@ public class Person implements UserDetails{
 
     @JsonIgnore
     @Column(name = "validation_code")
-    private String validationCode;
-    // @Temporal(TemporalType.TIMESTAMP)
-    //private Date validationCodeValidity;
-    private LocalDateTime validationCodeValidity;
+    private Integer validationCode;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date validationCodeValidity;
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = CascadeType.ALL)
 

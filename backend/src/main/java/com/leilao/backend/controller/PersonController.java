@@ -38,6 +38,11 @@ public class PersonController {
         return jwtService.PersonAuthResponseDTO(authRequest.getEmail(), jwtService.generateToken(authentication.getName()));
     }
 
+    @PostMapping("/password-code-request") // Metodo que manda o codigo
+    public String passwordCodeRequest(@RequestBody PersonAuthRequestDTO person) {
+        return personService.passwordCodeRequest(person);
+    }
+
     @PostMapping
     public Person create(@RequestBody Person person){
         return personService.create(person);

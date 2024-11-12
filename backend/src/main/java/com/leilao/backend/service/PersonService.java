@@ -1,7 +1,9 @@
 package com.leilao.backend.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.leilao.backend.model.Person;
+import com.leilao.backend.model.PersonAuthRequestDTO;
 import com.leilao.backend.repository.PersonRepository;
 
 @Service
@@ -23,6 +26,23 @@ public class PersonService implements UserDetailsService{
         //return profileSaved;
         return personRepository.save(person);
     }
+
+    public String passwordCodeRequest(PersonAuthRequestDTO personAuthRequestDTO) {
+        Optional<Person> person = personRepository.findByEmail(personAuthRequestDTO.getEmail());
+        if(person != null) {
+            Person personDataBase = person.get();
+            //gerar numero automatico random
+            personDataBase.setValidationCode(123456);
+            // aumentar uns 5 ou 10 da data atual
+            personDataBase.setValidationCodeValidity(new Date());
+            personRepository.save(personDataBase);
+
+            // enviar o email com o codigo semelhante ao que foi feito no cadastro - metodo create abaixo
+        }
+        return "mensagem";
+    }
+
+    
 
     public Person update(Person person){
         //return profileRepository.save(profile);
