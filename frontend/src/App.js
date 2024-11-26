@@ -9,6 +9,7 @@ import ForgotPassword from './pages/forgot_password/ForgotPassword';
 import DefaultLayout from './components/DefaultLayout';
 import SimpleLayout from './components/SimpleLayout';
 import PrivateRouter from './components/PrivateRouter';
+import Category from './pages/category/Category';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path='/' element={<DefaultLayout><Home></Home></DefaultLayout>}/>
             <Route path='/profile' element={<DefaultLayout><Profile></Profile></DefaultLayout>}/>
             <Route path='/dashboard' element={<DefaultLayout><Dashboard></Dashboard></DefaultLayout>}/>
+            <Route path='/category' element={<DefaultLayout><Category /></DefaultLayout>}/>
           </Route>
             <Route path='/login' element={<SimpleLayout><Login></Login></SimpleLayout>}/>
             <Route path='/register' element={<SimpleLayout><Register></Register></SimpleLayout>}/>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.leilao.backend.model.Person;
 import com.leilao.backend.model.PersonAuthRequestDTO;
+import com.leilao.backend.model.PersonAuthResponseDTO;
 import com.leilao.backend.security.JwtService;
 import com.leilao.backend.service.PersonService;
 
 
 @RestController
 @RequestMapping("/api/person")
+@CrossOrigin
 public class PersonController {
     
     @Autowired
@@ -32,10 +35,12 @@ public class PersonController {
     private JwtService jwtService;
 
     @PostMapping("/login")
-    public String authenticateUser(@RequestBody PersonAuthRequestDTO authRequest) {
+    public PersonAuthResponseDTO authenticateUser(@RequestBody PersonAuthRequestDTO authRequest) {
         Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-        return jwtService.PersonAuthResponseDTO(authRequest.getEmail(), jwtService.generateToken(authentication.getName()));
+                new UsernamePasswordAuthenticationToken(
+                        authRequest.getEmail(), authRequest.getPassword()));
+        return new PersonAuthResponseDTO(
+                authRequest.getEmail(), jwtService.generateToken(authentication.getName()));
     }
 
     @PostMapping("/password-code-request") // Metodo que manda o codigo
