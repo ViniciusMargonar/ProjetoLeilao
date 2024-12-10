@@ -1,7 +1,77 @@
-<html>
-    <body>
-        <h2>Cadastro Efetuado com Sucesso!</h2>
-        <p>Olá, <span th:text="${name}"></span></p>
-        <p>Seja bem-vindo ao sistema de Leilão.</p>
-    </body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Efetuado com Sucesso!</title>
+    <style>
+        /* Estilos inline são recomendados para e-mails */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px;
+            color: #333333;
+        }
+        .content h2 {
+            margin-top: 0;
+        }
+        .content p {
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Bem-vindo ao Sistema de Leilão</h1>
+        </div>
+        <div class="content">
+            <h2>Cadastro Efetuado com Sucesso!</h2>
+            <p>Olá, <span th:text="${name}"></span>,</p>
+            <p>
+                Estamos muito felizes em tê-lo conosco! Agora você faz parte do nosso sistema de leilões, onde oportunidades incríveis esperam por você.
+            </p>
+            <p>
+                Comece agora a explorar e participar de leilões com apenas alguns cliques.
+            </p>
+            <p>
+                Caso precise de ajuda, nossa equipe está à disposição para atendê-lo.
+            </p>
+            <p>Atenciosamente,<br>Equipe Trauction</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 Sistema de Leilão. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</body>
 </html>

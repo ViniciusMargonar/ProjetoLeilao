@@ -58,8 +58,7 @@ public class PersonService implements UserDetailsService {
         try {
             emailService.sendTemplateEmail(
                     personSaved.getEmail(),
-                    "Cadastro Efetuado com Sucesso", context,
-                    "emailWelcome");
+                    "Cadastro Efetuado com Sucesso");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
